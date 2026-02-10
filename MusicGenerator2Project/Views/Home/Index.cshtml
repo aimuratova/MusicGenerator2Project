@@ -1,0 +1,125 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="container-fluid p-4">
+
+    <!-- Top controls -->
+    <div class="row g-3 align-items-end mb-4">
+        <div class="col-md-3">
+            <label class="form-label">Language</label>
+            <select class="form-select" id="localOption">
+                <option value="en" selected>English (US)</option>
+                <option value="fr">French</option>
+                <option value="ru">Russian</option>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label">Seed</label>
+            <div class="input-group">
+                <input type="text" class="form-control" value="58933423" id="seedOption"/>
+                <button class="btn btn-outline-secondary">
+                    <i class="bi bi-shuffle"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Likes</label>
+            <input type="range" class="form-range" min="0" max="100" value="50" id="likesOption" />
+        </div>
+
+        <div class="col-md-2 text-end">
+            <div class="btn-group">
+                <button class="btn btn-primary" id="tableViewOption">
+					<i class="bi bi-table"><img src="~/icons/table.svg" /></i>
+                </button>
+                <button class="btn btn-outline-primary" id="gridViewOption">
+					<i class="bi bi-list"><img src="~/icons/list.svg" /></i>
+                </button>
+            </div>
+        </div>
+   </div>
+   <div id="container">
+
+   </div>
+
+</div>
+
+@section Scripts {
+    <script>
+		$(document).ready(function() {
+			paramChanged();
+        });
+
+        $('table tbody tr:not(.expanded-row)').on('click', function () {
+            const $expandedRow = $(this).next('.expanded-row');
+            if ($expandedRow.length) {
+                $expandedRow.toggle();
+            }
+        });
+
+        $('#localOption').on('change', function() {
+          // Get the selected value using the .val() method
+          //var selectedValue = $(this).val();
+          //console.log("Selected Value:", selectedValue);
+		  paramChanged();
+        });
+
+        $('#seedOption + button').on('click', function() {
+          // Generate a random seed value (for example, a random number)
+          var randomSeed = Math.floor(Math.random() * 100000000);
+          // Set the generated seed value to the input field
+          $('#seedOption').val(randomSeed);
+          //console.log("Generated Seed:", randomSeed);
+		  paramChanged();
+		});
+
+        $('#likesOption').on('input', function() {
+          //var likesValue = $(this).val();
+          //console.log("Likes Value:", likesValue);
+		  paramChanged();
+		});
+
+        $('#tableViewOption').on('click', function() {
+            $(this).addClass('btn-primary').removeClass('btn-outline-primary');
+            $('#gridViewOption').addClass('btn-outline-primary').removeClass('btn-primary');
+            // Additional logic to switch to table view can be added here
+			console.log("Switched to Table View");            
+        });
+        $('#gridViewOption').on('click', function() {
+            $(this).addClass('btn-primary').removeClass('btn-outline-primary');
+            $('#tableViewOption').addClass('btn-outline-primary').removeClass('btn-primary');
+            // Additional logic to switch to grid view can be added here
+			console.log("Switched to Grid View");
+		});
+
+        function paramChanged() {
+			var language = $('#localOption').val();
+			var seed = $('#seedOption').val();
+			var likes = $('#likesOption').val();
+
+            $.ajax({
+                url: "/Records/Get",
+                type: "GET",
+                data: {
+                    seed: seed,
+                    locale: language,
+                    likesMultiplier: likes
+                },
+                success: function(response) {
+                    // Handle the successful response
+                    console.log(response);
+                    $('#container').html(response);
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors
+                    console.error("An error occurred: " + error);
+                }
+            });
+        }
+
+    </script>
+}

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36915.13 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicGenerator2Project", "MusicGenerator2Project\MusicGenerator2Project.csproj", "{C2373324-7282-472B-975A-1648DE4C93FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicGenerator.BLL", "MusicGenerator.BLL\MusicGenerator.BLL.csproj", "{A70C86EB-C8E3-48D3-BA09-AD812D498B7C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C2373324-7282-472B-975A-1648DE4C93FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2373324-7282-472B-975A-1648DE4C93FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2373324-7282-472B-975A-1648DE4C93FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2373324-7282-472B-975A-1648DE4C93FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A70C86EB-C8E3-48D3-BA09-AD812D498B7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A70C86EB-C8E3-48D3-BA09-AD812D498B7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A70C86EB-C8E3-48D3-BA09-AD812D498B7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A70C86EB-C8E3-48D3-BA09-AD812D498B7C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3D87C4E8-3C87-42F6-BE5E-322309DD96CA}
+	EndGlobalSection
+EndGlobal

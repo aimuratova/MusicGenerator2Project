@@ -1,0 +1,7 @@
+﻿{
+  "music": {
+    "genres": [ "Rock", "Jazz", "Pop", "Hip Hop" ],
+    "adjectives": [ "Silencieux", "Électrique", "Doré" ],
+    "nouns": [ "Rêve", "Écho", "Ville" ]
+  }
+}

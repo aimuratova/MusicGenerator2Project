@@ -1,0 +1,82 @@
+﻿@using MusicGenerator2Project.Models;
+@model List<RecordViewModel>
+
+<!-- Table -->
+<div class="card">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>Song</th>
+                    <th>Artist</th>
+                    <th>Album</th>
+                    <th>Genre</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Likes</td>
+                        <td>@item.Title</td>
+                        <td>@item.Artist</td>
+                        <td>@item.Album</td>
+                        <td>@item.Genre</td>
+                    </tr>
+                    <tr class="expanded-row" style="display:none">
+                        <td colspan="5">
+                            <div class="row g-3 align-items-start">
+                                <div class="col-md-2">
+                                    <img src="" class="album-art rounded" />
+                                </div>
+
+                                <div class="col-md-10">
+                                    <h5 class="mb-1">
+                                        @item.Title
+                                        <button class="btn btn-sm btn-primary ms-2">
+                                            <i class="bi bi-play-fill"></i>
+                                        </button>
+                                    </h5>
+
+                                    <div class="text-muted mb-2">
+                                        from <strong>@item.Album</strong> by <strong>@item.Artist</strong><br />
+                                        @item.ReleaseDate
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <input type="range" class="form-range" />
+                                        <small class="text-muted">2:12</small>
+                                    </div>
+
+                                    <h6>Lyrics</h6>
+                                    <div class="lyrics">
+                                        Every beat reminds me of you, tearing me apart
+                                        In the million suns that shine, you're the brightest star
+
+                                        <strong>At the break of dawn, you're all I want, no matter how far</strong>
+
+                                        Oh Melanie, I try to move on
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Pagination -->
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        <li class="page-item">
+            <a class="page-link" href="#">«</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">4</a></li>
+        <li class="page-item active"><a class="page-link" href="#">5</a></li>
+        <li class="page-item"><a class="page-link" href="#">6</a></li>
+    </ul>
+</nav>

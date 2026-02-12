@@ -16,5 +16,6 @@ namespace MusicGenerator.BLL.Models
         public int DurationSeconds { get; set; }
         public DateTime ReleaseDate { get; set; }
         public double Likes { get; set; }
+        public string ImageSrc { get; set; }
     }
 }

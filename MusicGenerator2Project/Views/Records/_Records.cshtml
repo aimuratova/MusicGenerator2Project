@@ -18,7 +18,7 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@item.Likes</td>
+                        <td>@item.Id</td>
                         <td>@item.Title</td>
                         <td>@item.Artist</td>
                         <td>@item.Album</td>
@@ -28,7 +28,8 @@
                         <td colspan="5">
                             <div class="row g-3 align-items-start">
                                 <div class="col-md-2">
-                                    <img src="" class="album-art rounded" />
+                                    <img src="@item.ImageSrc" class="album-art rounded" />
+                                    <i>@item.Likes</i>
                                 </div>
 
                                 <div class="col-md-10">
@@ -46,7 +47,7 @@
 
                                     <div class="mb-3">
                                         <input type="range" class="form-range" />
-                                        <small class="text-muted">2:12</small>
+                                        <small class="text-muted">@item.DurationStr()</small>
                                     </div>
 
                                     <h6>Lyrics</h6>

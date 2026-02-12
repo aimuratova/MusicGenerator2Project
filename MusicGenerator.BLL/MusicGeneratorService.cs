@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using Microsoft.Extensions.Configuration;
 using MusicGenerator.BLL.Models;
 using MusicGenerator.BLL.Rng;
 using System.Text.Json;
@@ -7,8 +8,8 @@ namespace MusicGenerator.BLL
 {
     public static class MusicGeneratorService
     {
-        public static MusicItem Generate(int index, Faker faker, SeededRandom rng, JsonElement locale,
-            double likesMultiplier)
+        public static async Task<MusicItem> Generate(int index, Faker faker, SeededRandom rng, JsonElement locale,
+            double likesMultiplier, IConfiguration configuration)
         {
             var music = locale.GetProperty("music");
 
@@ -17,9 +18,11 @@ namespace MusicGenerator.BLL
             var genres = music.GetProperty("genres").EnumerateArray().Select(x => x.GetString()).ToArray();
 
             var title = $"{faker.PickRandom(adjectives)} {faker.PickRandom(nouns)}";
-            var baseLikes = rng.NextInt(1000);
+            var baseLikes = rng.NextInt(10);
 
-            return new MusicItem
+            var result = new MusicItem();
+
+            result = new MusicItem()
             {
                 Id = index,
                 Title = title,
@@ -28,8 +31,12 @@ namespace MusicGenerator.BLL
                 Likes = (int)(baseLikes * likesMultiplier),
                 Album = faker.Company.CompanyName(),
                 DurationSeconds = rng.NextInt(300) + 60, // 1 to 6 minutes
-                ReleaseDate = faker.Date.Past(30) // Released within the last 30 years
-            };
+                ReleaseDate = faker.Date.Past(30), // Released within the last 30 years
+            };            
+
+            result.ImageSrc = await ImageGeneratorService.GenerateImageAsync(result, configuration);
+
+            return result;
         }
     }
 }

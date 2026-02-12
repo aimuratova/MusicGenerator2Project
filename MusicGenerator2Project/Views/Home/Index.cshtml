@@ -28,7 +28,7 @@
 
         <div class="col-md-4">
             <label class="form-label">Likes</label>
-            <input type="range" class="form-range" min="0" max="100" value="50" id="likesOption" />
+            <input type="range" class="form-range" min="0" max="10" value="5" id="likesOption" />
         </div>
 
         <div class="col-md-2 text-end">
@@ -54,8 +54,9 @@
 			paramChanged();
         });
 
-        $('table tbody tr:not(.expanded-row)').on('click', function () {
+        $(document).on('click', 'table tbody tr:not(.expanded-row)', function () {
             const $expandedRow = $(this).next('.expanded-row');
+
             if ($expandedRow.length) {
                 $expandedRow.toggle();
             }
@@ -110,8 +111,6 @@
                     likesMultiplier: likes
                 },
                 success: function(response) {
-                    // Handle the successful response
-                    console.log(response);
                     $('#container').html(response);
                 },
                 error: function(xhr, status, error) {

@@ -10,6 +10,12 @@ namespace MusicGenerator2Project.Controllers
 {
     public class RecordsController : Controller
     {
+        private readonly IConfiguration _configuration;
+        public RecordsController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery]MusicParams musicParams)
         {
@@ -24,25 +30,29 @@ namespace MusicGenerator2Project.Controllers
                 .Range(0, musicParams.PageSize)
                 .Select(i =>
                     MusicGeneratorService.Generate(
-                        i + musicParams.Page * musicParams.PageSize,
+                        (i + 1) + (musicParams.Page - 1) * musicParams.PageSize,
                         faker,
                         rng,
                         localeData,
-                        musicParams.LikesMultiplier
+                        musicParams.LikesMultiplier,
+                        _configuration
                     )
                 );
 
             var recordsViewList = records
                 .Select(i => new RecordViewModel()
                 {
-                    Id = i.Id,
-                    Title = i.Title,
-                    Artist = i.Artist,
-                    Album = i.Album,
-                    Genre = i.Genre,
-                    Likes = i.Likes,
-                    ReleaseDate = i.ReleaseDate
+                    Id = i.Result.Id,
+                    Title = i.Result.Title,
+                    Artist = i.Result.Artist,
+                    Album = i.Result.Album,
+                    Genre = i.Result.Genre,
+                    Likes = i.Result.Likes,
+                    ReleaseDate = i.Result.ReleaseDate,
+                    ImageSrc = i.Result.ImageSrc,
+                    DurationSeconds = i.Result.DurationSeconds
                 })
+                .OrderBy(i => i.Id)
                 .ToList();
 
             return PartialView("_Records", recordsViewList);
